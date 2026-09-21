@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game Session History vs. Game Transaction History</title>
+<meta name="description" content="Learn the differences between session history and transaction history, what each records, and when to reference each type of historical data.">
+<link rel="canonical" href="">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Work Sans',sans-serif;background:#f8f4ed;color:#3d3228;line-height:1.7}
+.vs-banner{padding:60px 20px 40px;text-align:center;background:#ede5d8}
+.vs-banner h1{font-size:1.9rem;color:#d97706;margin-bottom:18px;font-weight:700}
+.vs-banner p{max-width:780px;margin:0 auto;font-size:1.05rem;color:#57483a}
+.vs-card{max-width:880px;margin:30px auto;background:#ffffff;border-radius:12px;padding:40px 36px;box-shadow:0 4px 18px rgba(100,80,60,0.1)}
+.vs-card h2{color:#d97706;font-size:1.4rem;margin:30px 0 12px;font-weight:700}
+.vs-card p{margin-bottom:14px;font-size:1rem;color:#4a3d30}
+.vs-centerpiece{margin:36px 0;padding:30px 24px;background:#fdfbf7;border:2px solid#e5d9c4;border-radius:10px}
+.vs-split{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:20px 0}
+.vs-column{background:#f8f4ed;border:3px solid#d97706;border-radius:12px;padding:28px}
+.vs-column h3{color:#d97706;font-size:1.3rem;margin-bottom:18px;font-weight:700;text-align:center}
+.vs-list{list-style:none;padding:0}
+.vs-list li{padding:12px 0;border-bottom:1px solid#e5d9c4;position:relative;padding-left:24px;font-size:0.95rem;color:#57483a}
+.vs-list li:last-child{border-bottom:none}
+.vs-list li::before{content:'•';position:absolute;left:0;color:#d97706;font-size:1.4em;line-height:1}
+.vs-note{margin-top:16px;text-align:center;font-size:0.75rem;color:#8a7760}
+.vs-row{display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid#ede5d8}
+.vs-tag{min-width:130px;font-weight:700;color:#d97706;font-size:0.95rem;padding-top:2px}
+.vs-row p{margin:0;font-size:0.97rem;color:#4a3d30}
+.vs-callout{background:#fef8ed;border-left:4px solid#d97706;padding:20px 24px;margin:30px 0;border-radius:0 8px 8px 0}
+.vs-callout p{margin:0;color:#57483a;font-size:1rem}
+.vs-closing{padding:30px 20px;text-align:center}
+.vs-closing p{max-width:700px;margin:0 auto;color:#8a7760;font-size:0.97rem}
+.vs-footer{text-align:center;padding:20px;font-size:0.85rem;color:#a89581;border-top:1px solid#ede5d8}
+@media(max-width:768px){.vs-split{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="vs-banner">
+<h1>Game Session History vs. Game Transaction History</h1>
+<p>Understanding the distinction between session history
+and transaction history clarifies what information
+each type preserves and when to
+reference specific historical records.</p>
+</div>
+<div class="vs-card">
+<h2>Two Different Types of Records</h2>
+<p>Gaming systems often maintain multiple types
+of historical records serving different documentation
+purposes. Session history tracks gameplay periods—when
+games were played and for how
+long. Transaction history records account-related actions
+such as purchases, configuration changes, or
+economic activity within game systems. While
+both create chronological logs, they document
+fundamentally different categories of user activity.</p>
+<p>The separation exists because gameplay activity
+and account transactions represent distinct events
+requiring different information structures. A gaming
+session has start time, end time,
+duration, and game identity. A transaction
+has type, amount, timestamp, and status.
+Mixing these different event types into
+undifferentiated logs would create organizational confusion
+and make specific information harder to
+locate when needed for particular purposes.</p>
+<h2>What Session History Documents</h2>
+<p>Session history focuses exclusively on gameplay
+periods. Each record represents one distinct
+gaming session from start to end.
+The preserved information typically includes when
+the session occurred (date and time),
+how long it lasted (duration), which
+game was played (game identifier), and
+sometimes additional gameplay context like mode
+or participants. Session history answers questions
+about gameplay activity patterns and temporal
+aspects of gaming behavior.</p>
+<p>The scope of session history remains
+bounded to actual gameplay. Pre-game activities
+like browsing menus, post-game activities like
+reviewing results screens, and non-gameplay account
+interactions fall outside typical session tracking.
+The focus stays on active gaming
+periods, creating a specialized record of
+play activity distinct from broader account
+usage.</p>
+<div class="vs-centerpiece">
+<div class="vs-split">
+<div class="vs-column">
+<h3>Session History</h3>
+<ul class="vs-list">
+<li>Gameplay start and end times</li>
+<li>Session duration calculation</li>
+<li>Game type or title played</li>
+<li>Game mode or configuration</li>
+<li>Participant information (if multiplayer)</li>
+<li>Outcome or completion status</li>
+<li>Gameplay-specific metrics</li>
+</ul>
+</div>
+<div class="vs-column">
+<h3>Transaction History</h3>
+<ul class="vs-list">
+<li>Purchase timestamps and amounts</li>
+<li>Payment method information</li>
+<li>Account balance changes</li>
+<li>In-game currency transactions</li>
+<li>Settings or configuration changes</li>
+<li>Account status modifications</li>
+<li>Refund or reversal records</li>
+</ul>
+</div>
+</div>
+<div class="vs-note">Distinct information categories tracked by each history type</div>
+</div>
+<h2>What Transaction History Documents</h2>
+<p>Transaction history records account-level actions rather
+than gameplay periods. Purchases of games,
+downloadable content, or in-game items generate
+transaction records. Changes to account settings,
+subscription status modifications, or payment method
+updates create entries. Refunds, chargebacks, or
+balance adjustments appear as transactions. The
+common thread is that these events
+affect account state or involve economic
+exchange rather than representing gameplay itself.</p>
+<p>Transaction records include different data fields
+than session records. Transaction amount, currency
+type, payment method, transaction status (pending,
+completed, failed, refunded), and merchant information
+all matter for transactions but have
+no relevance to gameplay sessions. Conversely,
+session duration and game identity apply
+to gameplay but not to account
+transactions. The differing information needs justify
+maintaining separate historical record systems.</p>
+<h2>Why the Distinction Matters</h2>
+<p>Maintaining distinct session and transaction histories
+improves information organization and accessibility. Users
+seeking gameplay activity review want session
+history without transaction clutter. Those researching
+purchases or account changes want transaction
+history without gameplay entries. Separation enables
+efficient access to relevant information without
+sifting through unrelated records.</p>
+<p>The distinction also serves regulatory and
+business purposes. Financial transactions often require
+longer retention periods and stricter security
+than gameplay records. Audit requirements may
+apply to transactions but not sessions.
+Privacy regulations might treat the two
+record types differently. Separate systems allow
+appropriate policies for each record category
+without compromise or overreach.</p>
+<h2>When Records Overlap or Relate</h2>
+<p>Some gaming activities create entries in
+both history types. Purchasing and immediately
+playing a new game generates a
+transaction record for the purchase and
+a session record for the gameplay.
+Starting a premium game that charges
+per session might log both the
+session and the associated transaction. The
+histories remain separate, but timestamps and
+related identifiers can link corresponding entries
+when needed.</p>
+<p>Systems handle this overlap through reference
+linking rather than duplication. A transaction
+record might include a session identifier
+if the purchase related to specific
+gameplay. A session record might reference
+a transaction if the session required
+payment. These links preserve relationships while
+maintaining organizational separation between the two
+history types.</p>
+<div class="vs-row">
+<span class="vs-tag">Scope Focus</span>
+<p>Session history documents gameplay periods while
+transaction history records account actions and
+economic events outside active play.</p>
+</div>
+<div class="vs-row">
+<span class="vs-tag">Data Fields</span>
+<p>Each history type preserves information relevant
+to its category, with minimal overlap
+in recorded data field types.</p>
+</div>
+<div class="vs-row">
+<span class="vs-tag">Access Efficiency</span>
+<p>Separation enables targeted review of specific
+activity without scanning through unrelated record
+types during historical examination.</p>
+</div>
+<div class="vs-row">
+<span class="vs-tag">Policy Application</span>
+<p>Different retention periods, security requirements, and
+regulatory obligations can apply appropriately to
+each record type independently.</p>
+</div>
+<div class="vs-row">
+<span class="vs-tag">Related Events</span>
+<p>When activities generate both record types,
+linking mechanisms connect related entries while
+maintaining organizational separation.</p>
+</div>
+<div class="vs-callout">
+<p>Session history tracks gameplay periods with
+temporal and activity data, while transaction
+history documents account-level actions and economic
+events, serving complementary but distinct documentation
+purposes.</p>
+</div>
+<h2>Accessing Different History Types</h2>
+<p>Gaming platforms typically provide separate interfaces
+for accessing session history versus transaction
+history. Account dashboards might have distinct
+sections labeled "Play History" and "Purchase
+History" or similar. Some systems integrate
+both into unified activity views with
+filtering options to show specific record
+types. Understanding where each history resides
+within platform interfaces speeds information retrieval.</p>
+<p>Search and filter capabilities often differ
+between history types. Session history might
+filter by date range, game title,
+or duration. Transaction history filters by
+amount, transaction type, or payment method.
+The appropriate search parameters depend on
+which history contains the sought information,
+making the session-versus-transaction distinction important for
+effective historical research.</p>
+<h2>Combined Activity Views</h2>
+<p>Some platforms present combined activity timelines
+integrating both sessions and transactions chronologically.
+These unified views show all account
+activity in temporal sequence regardless of
+type. Individual entries identify whether they
+represent gameplay or transactions through labels
+or formatting. Combined views provide comprehensive
+activity understanding while preserving the conceptual
+distinction between record types through clear
+categorization.</p>
+<p>Even in combined presentations, the underlying
+data typically remains separately stored and
+managed. The integration occurs at the
+display layer rather than the storage
+layer, maintaining the benefits of separate
+systems while offering users convenient unified
+access. Users can often filter combined
+views to show only sessions or
+only transactions depending on current information
+needs.</p>
+</div>
+<div class="vs-closing">
+<p>Comparing different types of history information
+helps clarify which records describe gameplay
+and which relate to separate account
+transactions.</p>
+</div>
+<footer class="vs-footer">&copy; 2026</footer>
+<script>document.querySelector('link[rel="canonical"]').setAttribute('href',window.location.href)</script>
+</body>
+</html>
